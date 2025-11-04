@@ -6,13 +6,12 @@
 //    - Method: void processPayment(double amount)
 mixin Payable {
   double calculateSalary(double baseSalary, double bonus) {
-    // TODO: Calculate total salary (base + bonus)
-    return 0.0; // Placeholder - replace with actual implementation
+    return baseSalary + bonus; // Placeholder - replace with actual implementation
   }
   
   void processPayment(double amount) {
     // TODO: Process payment
-    // Add your implementation here
+     print("Payment processed: $amount");
   }
 }
 
@@ -21,7 +20,7 @@ mixin Payable {
 mixin Reportable {
   String generateReport(String employeeName, String department) {
     // TODO: Generate report
-    return ""; // Placeholder - replace with actual implementation
+     return "Monthly report for $employeeName in $department department"; // Placeholder - replace with actual implementation
   }
 }
 
@@ -56,22 +55,15 @@ class Manager extends Employee with Payable, Reportable {
   Manager(String name, String id, String department, this.teamSize) : super(name, id, department);
   
   @override
-  String getJobTitle() {
-    // TODO: Return manager job title
-    return ""; // Placeholder - replace with actual implementation
-  }
-  
+  String getJobTitle() => "Manager";
+
   @override
-  double getBaseSalary() {
-    // TODO: Return manager base salary
-    return 0.0; // Placeholder - replace with actual implementation
-  }
-  
-  @override
+  double getBaseSalary() => 8000.0;
+
   void displayInfo() {
-    // TODO: Override to show manager-specific info
-    // Add your implementation here
+    print("Manager: $name (ID: $id, Department: $department, Team Size: $teamSize)");
   }
+
 }
 
 //    - Developer extends Employee with Payable
@@ -82,22 +74,15 @@ class Developer extends Employee with Payable {
   
   Developer(String name, String id, String department, this.programmingLanguage) : super(name, id, department);
   
+   @override
+  String getJobTitle() => "Senior Developer";
+
   @override
-  String getJobTitle() {
-    // TODO: Return developer job title
-    return ""; // Placeholder - replace with actual implementation
-  }
-  
-  @override
-  double getBaseSalary() {
-    // TODO: Return developer base salary
-    return 0.0; // Placeholder - replace with actual implementation
-  }
-  
-  @override
+  double getBaseSalary() => 6000.0;
+
   void displayInfo() {
-    // TODO: Override to show developer-specific info
-    // Add your implementation here
+    print(
+        "Developer: $name (ID: $id, Department: $department, Language: $programmingLanguage)");
   }
 }
 
@@ -109,9 +94,26 @@ void main() {
   //    - Display all employee information
   
   // TODO: Create employees
-  
-  // TODO: Demonstrate salary calculation with bonus
-  
-  // TODO: Display employee information
-  
+  final manager = Manager("John Smith", "M001", "IT", 5);
+  final dev = Developer("Alice Johnson", "D001", "IT", "Dart");
+
+  manager.displayInfo();
+  print("Job Title: ${manager.getJobTitle()}");
+  final mBase = manager.getBaseSalary();
+  print("Base Salary: $mBase");
+  final mCalculated = manager.calculateSalary(mBase, 1000.0);
+  print("Calculated Salary: $mCalculated");
+  manager.processPayment(mCalculated);
+  print("Report: ${manager.generateReport(manager.name, manager.department)}");
+
+  print(""); // spacer
+
+  // --- Developer section ---
+  dev.displayInfo();
+  print("Job Title: ${dev.getJobTitle()}");
+  final dBase = dev.getBaseSalary();
+  print("Base Salary: $dBase");
+  final dCalculated = dev.calculateSalary(dBase, 500.0);
+  print("Calculated Salary: $dCalculated");
+  dev.processPayment(dCalculated);
 }

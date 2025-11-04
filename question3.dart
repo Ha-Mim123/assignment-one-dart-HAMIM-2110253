@@ -19,12 +19,23 @@ class BankAccount {
   //    - deposit(double amount): Add money to account
   // TODO: Implement the deposit method
   void deposit(double amount) {
+    if (amount > 0) {
+      balance += amount;
+    } else {
+      print("Invalid deposit amount.");
+    }
     // TODO: Add the amount to balance
   }
   
   //    - withdraw(double amount): Remove money from account (check for sufficient funds)
   // TODO: Implement the withdraw method
   void withdraw(double amount) {
+    if (amount <= balance) {
+      balance -= amount;
+    } else {
+      print(
+          "Insufficient funds for withdrawal of $amount from account $accountNumber");
+    }
     // TODO: Check for sufficient funds and subtract amount
     // TODO: Print error message if insufficient funds
   }
@@ -33,12 +44,14 @@ class BankAccount {
   // TODO: Implement the getBalance method
   double getBalance() {
     // TODO: Return the current balance
-    return 0.0; // TODO: Replace with actual balance
+    return balance; // TODO: Replace with actual balance
   }
   
   //    - displayAccountInfo(): Show account details
   // TODO: Implement the displayAccountInfo method
   void displayAccountInfo() {
+     print(
+        "Account: $accountNumber, Holder: $accountHolder, Type: $accountType, Balance: $balance");
     // TODO: Display account information
   }
 }
@@ -55,20 +68,14 @@ void main() {
   BankAccount account2 = BankAccount("67890", "Bob", "Checking");
   BankAccount account3 = BankAccount("11111", "Charlie", "Savings");
   
-  // TODO: Demonstrate depositing money
-  account1.deposit(1000.0);
-  account2.deposit(500.0);
-  account3.deposit(2000.0);
+ // Perform transactions
+  account1.deposit(1500);
+  account2.deposit(1000);
+  account2.withdraw(200);
   
-  // TODO: Demonstrate withdrawing money
-  account1.withdraw(200.0);
-  account2.withdraw(100.0);
-  
-  // TODO: Display account information
+
+  // Display info
   account1.displayAccountInfo();
   account2.displayAccountInfo();
-  account3.displayAccountInfo();
-  
-  // TODO: Demonstrate insufficient funds scenario
-  account2.withdraw(1000.0); // This should show insufficient funds message
+  account2.withdraw(1000); // insufficient funds
 }
